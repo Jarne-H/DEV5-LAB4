@@ -24,8 +24,8 @@ controls.enableDamping = true;
 controls.minDistance = 1;
 controls.maxDistance = 5;
 
-//don't let orbit control go under y = 0
-controls.maxPolarAngle = Math.PI / 2;
+//don't let orbit control go under y = 0.001
+controls.maxPolarAngle = Math.PI / 2.1;
 
 
 
@@ -62,6 +62,25 @@ ground.material.side = THREE.DoubleSide;
 ground.rotation.x = - Math.PI / 2;
 ground.position.y = - 0;
 scene.add(ground);
+
+
+//*********************CLOUDS******************** */
+const maxY = 4;
+const minY = 3;
+
+//create ball
+const geometryCloud = new THREE.SphereGeometry(0.1, 10, 10);
+const materialCloud = new THREE.MeshStandardMaterial({ color: 0xffffff });
+const cloud = new THREE.Mesh(geometryCloud, materialCloud);
+
+//create 6 random clouds between y 3 and y4
+for (let i = 0; i < 6; i++) {
+  const cloud = new THREE.Mesh(geometryCloud, materialCloud);
+  cloud.position.x = (Math.random() - 0.5) * 4;
+  cloud.position.y = Math.random() * (maxY - minY) + minY;
+  cloud.position.z = (Math.random() - 0.5) * 4;
+  scene.add(cloud);
+}
 
 //*********************HOUSE******************** */
 
