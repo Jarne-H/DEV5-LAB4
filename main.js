@@ -1,10 +1,12 @@
 import './style.css'
 import * as THREE from 'THREE'
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
-//import house from './house.js'
 
 const scene = new THREE.Scene();
+//add camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+camera.position.y = 0.5;
+camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
@@ -17,6 +19,7 @@ scene.add(ambientLight);
 //add orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+
 
 
 //*********************BACKGROUND******************** */
@@ -55,15 +58,72 @@ scene.add(ground);
 
 //*********************HOUSE******************** */
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshLambertMaterial({ color: 0xffffff});
-const cube = new THREE.Mesh(geometry, material);
-cube.position.y = 0.5;
-scene.add(cube);
+//create cube with planes
+//use a loop
+//sides orientation, scales, position
 
-camera.position.y = 0.5;
-camera.position.z = 5;
 
+const house = new THREE.PlaneGeometry(1, 1, 1);
+
+//create 6 flats for walls
+var houseX = 0;
+var houseY = 0.5;
+var houseZ = 0;
+
+
+const materials = [
+  new THREE.MeshLambertMaterial({ color: 0xffd700 }),
+  new THREE.MeshLambertMaterial({ color: 0xffd700 }),
+  new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
+  new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
+  new THREE.MeshLambertMaterial({ color: 0xff1818 }),
+  new THREE.MeshLambertMaterial({ color: 0xff1818 })
+];
+
+materials.forEach(material => material.side = THREE.DoubleSide);
+
+const front = new THREE.Mesh(house, materials[0]);
+const back = new THREE.Mesh(house, materials[1]);
+const top = new THREE.Mesh(house, materials[2]);
+const bot = new THREE.Mesh(house, materials[3]);
+const right = new THREE.Mesh(house, materials[4]);
+const left = new THREE.Mesh(house, materials[5]);
+
+
+front.position.x = houseX;
+front.position.y = houseY;
+front.position.z = houseZ + 0.5;
+
+back.position.x = houseX;
+back.position.y = houseY;
+back.position.z = houseX - 0.5;
+
+top.position.x = houseX;
+top.position.y = houseX + 1;
+top.position.z = houseZ;
+  top.rotation.x = houseX + Math.PI / 2;
+
+bot.position.x = houseX;
+bot.position.y = houseY - 0.5;
+bot.position.z = houseZ;
+  bot.rotation.x = houseX + Math.PI / 2;
+
+right.position.x = houseX + 0.5;
+right.position.y = houseY;
+right.position.z = houseZ;
+  right.rotation.y = houseX + Math.PI / 2;
+
+left.position.x = houseX - 0.5;
+left.position.y = houseY;
+left.position.z = houseZ;
+  left.rotation.y = houseX + Math.PI / 2;
+
+scene.add(front);
+scene.add(back);
+scene.add(top);
+scene.add(bot);
+scene.add(right);
+scene.add(left);
 
 //*********************LIGHTS******************** */
 
