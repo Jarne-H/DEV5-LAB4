@@ -4,7 +4,7 @@ import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
 
 import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
 import createHouse from './src/js/house.js';
-//import lights from './src/js/lights.js';
+import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
 
@@ -32,6 +32,10 @@ controls.maxDistance = 5;
 
 //don't let orbit control go under y = 0.001
 controls.maxPolarAngle = Math.PI / 2.1;
+
+//add lights
+scene.add(houseLight())
+scene.add(directionalLight());
 
 
 
@@ -160,15 +164,6 @@ function changeHouse() {
 if (document.getElementById("houseWidth").value != houseWidth || document.getElementById("houseHeight").value != houseHeight || document.getElementById("houseDepth").value != houseDepth) {
   changeHouse();
 }
-
-//*********************LIGHTS*********************//
-
-
-//var newHouseLight = new lights();
-//scene.add(newHouseLight.houseLight());
-
-//var newDirectionalLight = new lights();
-//scene.add(newDirectionalLight.houselight());
 
 //*******animation******* */
 function animate(item) {
