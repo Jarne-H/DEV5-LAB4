@@ -63,6 +63,34 @@ ground.rotation.x = - Math.PI / 2;
 ground.position.y = - 0;
 scene.add(ground);
 
+//*********************ROAD******************** */
+//create road
+//road black color
+const roadGeometry = new THREE.PlaneGeometry(10, 1)
+const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 })
+const road = new THREE.Mesh(roadGeometry, roadMaterial);
+//make backside of road visible
+road.material.side = THREE.DoubleSide;
+road.rotation.x = - Math.PI / 2;
+road.position.y = + 0.0005;
+road.position.z = + 1;
+scene.add(road);
+
+//create 2 sides of road cube
+const roadCubeGeometry = new THREE.BoxGeometry(10, 0.03, 0.07);
+const roadCubeMaterial = new THREE.MeshStandardMaterial({ color: 0x999999 });
+
+const roadCube1 = new THREE.Mesh(roadCubeGeometry, roadCubeMaterial);
+roadCube1.position.y = + 0.02;
+roadCube1.position.z = + 0.5;
+scene.add(roadCube1);
+
+
+const roadCube2 = new THREE.Mesh(roadCubeGeometry, roadCubeMaterial);
+roadCube2.position.y = + 0.02;
+roadCube2.position.z = + 1.5;
+scene.add(roadCube2);
+
 
 //*********************CLOUDS******************** */
 const maxY = 4;
