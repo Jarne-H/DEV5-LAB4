@@ -20,6 +20,13 @@ scene.add(ambientLight);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
+//set boundaries to orbit controls
+controls.minDistance = 1;
+controls.maxDistance = 5;
+
+//don't let orbit control go under y = 0
+controls.maxPolarAngle = Math.PI / 2;
+
 
 
 //*********************BACKGROUND******************** */
