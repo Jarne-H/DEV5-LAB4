@@ -2,6 +2,12 @@ import './style.css'
 import * as THREE from 'THREE'
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
 
+import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
+import createHouse from './src/js/house.js';
+//import lights from './src/js/lights.js';
+
+//prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
+
 const scene = new THREE.Scene();
 //add camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -29,7 +35,7 @@ controls.maxPolarAngle = Math.PI / 2.1;
 
 
 
-//*********************BACKGROUND******************** */
+//*********************BACKGROUND*********************//
 //set background to galaxy.jpg
 const loader = new THREE.TextureLoader();
 
@@ -42,7 +48,7 @@ const backgroundSphere = new THREE.Mesh(geometryBall, materialBall);
 backgroundSphere.material.side = THREE.BackSide;
 scene.add(backgroundSphere);
 
-//*********************GROUND******************** */
+//*********************GROUND*********************//
 //create ground
 //use grass.jpg as texture
 const groundTexture = loader.load('./src/images/grass.jpg');
@@ -63,7 +69,7 @@ ground.rotation.x = - Math.PI / 2;
 ground.position.y = - 0;
 scene.add(ground);
 
-//*********************ROAD******************** */
+//*********************ROAD*********************//
 //create road
 //road black color
 const roadGeometry = new THREE.PlaneGeometry(10, 1)
@@ -92,7 +98,7 @@ roadCube2.position.z = + 1.5;
 scene.add(roadCube2);
 
 
-//*********************CLOUDS******************** */
+//*********************CLOUDS*********************//
 const maxY = 4;
 const minY = 3;
 
@@ -110,87 +116,59 @@ for (let i = 0; i < 6; i++) {
   scene.add(cloud);
 }
 
-//*********************HOUSE******************** */
+//*********************HOUSE*********************//
 
-//create cube with planes
-//use a loop
-//sides orientation, scales, position
-
-
-const house = new THREE.PlaneGeometry(1, 1, 1);
-
+//create a house with planes
 //create 6 flats for walls
 var houseX = 0;
-var houseY = 0.5;
+var houseY = 0;
 var houseZ = 0;
+//set houseWidth to #houseWidth value
+var houseWidth = document.getElementById("houseWidth").value;
+
+var houseHeight = 1;
+var houseDepth = 1;
 
 
-const materials = [
-  new THREE.MeshLambertMaterial({ color: 0xffd700 }),
-  new THREE.MeshLambertMaterial({ color: 0xffd700 }),
-  new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
-  new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
-  new THREE.MeshLambertMaterial({ color: 0xff1818 }),
-  new THREE.MeshLambertMaterial({ color: 0xff1818 })
-];
-
-materials.forEach(material => material.side = THREE.DoubleSide);
-
-const front = new THREE.Mesh(house, materials[0]);
-const back = new THREE.Mesh(house, materials[1]);
-const top = new THREE.Mesh(house, materials[2]);
-const bot = new THREE.Mesh(house, materials[3]);
-const right = new THREE.Mesh(house, materials[4]);
-const left = new THREE.Mesh(house, materials[5]);
+//if no house is created, create house
+function createHouset() {
+  var houseCreated = false;
+  if (houseCreated == false) {
+    
+    //loop through array of 6
+    for (let i = 0; i < 6; i++) {
+      scene.add(createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth)[i]);
+    }
+    houseCreated = true;
+  }
+}
+createHouset();
 
 
-front.position.x = houseX;
-front.position.y = houseY;
-front.position.z = houseZ + 0.5;
+//if houseWidth or houseHeight or housedepth is changed, remove old house and create new house
+function changeHouse() {
+  houseWidth = document.getElementById("houseWidth").value;
+  houseHeight = document.getElementById("houseHeight").value;
+  houseDepth = document.getElementById("houseDepth").value;
+  HouseClass.createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth).forEach(function (wall) {
+    scene.remove(wall);
+  });
+  HouseClass.createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth).forEach(function (wall) {
+    scene.add(wall);
+  });
+}
+if (document.getElementById("houseWidth").value != houseWidth || document.getElementById("houseHeight").value != houseHeight || document.getElementById("houseDepth").value != houseDepth) {
+  changeHouse();
+}
 
-back.position.x = houseX;
-back.position.y = houseY;
-back.position.z = houseX - 0.5;
+//*********************LIGHTS*********************//
 
-top.position.x = houseX;
-top.position.y = houseX + 1;
-top.position.z = houseZ;
-  top.rotation.x = houseX + Math.PI / 2;
 
-bot.position.x = houseX;
-bot.position.y = houseY - 0.5;
-bot.position.z = houseZ;
-  bot.rotation.x = houseX + Math.PI / 2;
+//var newHouseLight = new lights();
+//scene.add(newHouseLight.houseLight());
 
-right.position.x = houseX + 0.5;
-right.position.y = houseY;
-right.position.z = houseZ;
-  right.rotation.y = houseX + Math.PI / 2;
-
-left.position.x = houseX - 0.5;
-left.position.y = houseY;
-left.position.z = houseZ;
-  left.rotation.y = houseX + Math.PI / 2;
-
-scene.add(front);
-scene.add(back);
-scene.add(top);
-scene.add(bot);
-scene.add(right);
-scene.add(left);
-
-//*********************LIGHTS******************** */
-
-//add directional light
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.x = 1;
-directionalLight.position.z = 1;
-scene.add(directionalLight);
-
-//add helper for lights
-//const lightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-//scene.add(lightHelper);
-
+//var newDirectionalLight = new lights();
+//scene.add(newDirectionalLight.houselight());
 
 //*******animation******* */
 function animate(item) {
