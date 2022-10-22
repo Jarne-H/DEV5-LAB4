@@ -6,6 +6,7 @@ import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
 import createHouse from './src/js/house.js';
 import background from './src/js/background.js';
 import ground from './src/js/ground.js';
+import road from './src/js/road.js';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -39,8 +40,6 @@ controls.maxPolarAngle = Math.PI / 2.1;
 scene.add(houseLight())
 scene.add(directionalLight());
 
-
-
 //*********************BACKGROUND*********************//
 scene.add(background());
 
@@ -48,17 +47,7 @@ scene.add(background());
 scene.add(ground());
 
 //*********************ROAD*********************//
-//create road
-//road black color
-const roadGeometry = new THREE.PlaneGeometry(10, 1)
-const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 })
-const road = new THREE.Mesh(roadGeometry, roadMaterial);
-//make backside of road visible
-road.material.side = THREE.DoubleSide;
-road.rotation.x = - Math.PI / 2;
-road.position.y = + 0.0005;
-road.position.z = + 1;
-scene.add(road);
+scene.add(road());
 
 //create 2 sides of road cube
 const roadCubeGeometry = new THREE.BoxGeometry(10, 0.03, 0.07);
