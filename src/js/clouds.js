@@ -59,13 +59,11 @@ export default function clouds(radius) {
     const pytagorasB = radius;
 
     //calculate c with pytagoras
-    var pytagorasC = Math.sqrt(Math.pow(pytagorasA, 2) + Math.pow(pytagorasB, 2));
-
-    console.log(pytagorasA, pytagorasB, pytagorasC);
+    var pytagorasC = Math.sqrt( pytagorasB * 2 - pytagorasA * 2);
 
     var cloudPositionY = pytagorasA;
-    var cloudPositionX = (Math.random() - 0.5) * (pytagorasC/2 - 0.1);
-    var cloudPositionZ = (Math.random() - 0.5) * (pytagorasC/2 - 0.1);
+    var cloudPositionX = (Math.random() - 0.5) * (pytagorasC - 0.05);
+    var cloudPositionZ = (Math.random() - 0.5) * (pytagorasC - 0.05);
     
     console.log("pytagoras")
     console.log(cloudPositionX, cloudPositionY, cloudPositionZ);

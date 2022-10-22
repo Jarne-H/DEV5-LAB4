@@ -1,3 +1,4 @@
+//*********************SETUP*********************//
 import './style.css'
 import * as THREE from 'THREE'
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
@@ -9,6 +10,7 @@ import ground from './src/js/ground.js';
 import road from './src/js/road.js';
 import roadCube from './src/js/roadcube';
 import clouds from './src/js/clouds';
+import pirateShip from './src/js/pirate';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -27,21 +29,21 @@ document.body.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
+//radius of the space
+const radius = 10;
+
 //add orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 //set boundaries to orbit controls
-controls.minDistance = 1;
-controls.maxDistance = 5;
+controls.minDistance = 0.1;
+controls.maxDistance = radius/2;
 
 //don't let orbit control go under y = 0.001
 controls.maxPolarAngle = Math.PI / 2.1;
 
-//radius of the sphere
-const radius = 10;
-
-//add lights
+//*********************LIGHTS*********************//
 scene.add(houseLight())
 scene.add(directionalLight());
 
@@ -55,6 +57,9 @@ scene.add(ground());
 scene.add(road());
 scene.add(roadCube(0.5));
 scene.add(roadCube(1.5));
+
+//*********************PRATESHIP*********************//
+scene.add(pirateShip());
 
 //*********************CLOUDS*********************//
 for (let i = 0; i < radius; i++) {
