@@ -7,3 +7,20 @@
     position: absolute;
     margin: 25px;
 }
+.form input{
+    width: min-content;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+.form input[type="submit"]{
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+.form input[type="submit"]:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
