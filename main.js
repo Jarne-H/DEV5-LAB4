@@ -5,6 +5,7 @@ import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
 import createHouse from './src/js/house.js';
 import background from './src/js/background.js';
+import ground from './src/js/ground.js';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -44,26 +45,7 @@ scene.add(directionalLight());
 scene.add(background());
 
 //*********************GROUND*********************//
-//create ground
-//use grass.jpg as texture
-const loader = new THREE.TextureLoader();
-const groundTexture = loader.load('./src/images/grass.jpg');
-groundTexture.wrapS = THREE.RepeatWrapping;
-groundTexture.wrapT = THREE.RepeatWrapping;
-groundTexture.repeat.set(25, 25);
-groundTexture.anisotropy = 16;
-groundTexture.encoding = THREE.sRGBEncoding;
-
-const groundGeometry = new THREE.PlaneGeometry(10, 10)
-const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x80ff80,  map: groundTexture})
-
-const ground = new THREE.Mesh(groundGeometry, groundMaterial); 
-//make backside of ground visible
-ground.material.side = THREE.DoubleSide;
-
-ground.rotation.x = - Math.PI / 2;
-ground.position.y = - 0;
-scene.add(ground);
+scene.add(ground());
 
 //*********************ROAD*********************//
 //create road
