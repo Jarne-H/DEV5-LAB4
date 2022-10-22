@@ -2,8 +2,6 @@
 import './style.css'
 import * as THREE from 'THREE'
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
-
-import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
 import createHouse from './src/js/house.js';
 import background from './src/js/background.js';
 import ground from './src/js/ground.js';
@@ -38,7 +36,7 @@ controls.enableDamping = true;
 
 //set boundaries to orbit controls
 controls.minDistance = 0.1;
-controls.maxDistance = radius/2;
+//controls.maxDistance = radius/2;
 
 //don't let orbit control go under y = 0.001
 controls.maxPolarAngle = Math.PI / 2.1;
@@ -62,10 +60,9 @@ scene.add(roadCube(1.5));
 scene.add(pirateShip());
 
 //*********************CLOUDS*********************//
-for (let i = 0; i < radius; i++) {
+for (let i = 0; i < radius*2; i++) {
   scene.add(clouds(radius));
 }
-
 
 //*********************HOUSE*********************//
 
@@ -87,7 +84,7 @@ function createHouset() {
   if (houseCreated == false) {
     
     //loop through array of 6
-    for (let i = 0; i < 6; i++) {
+    for (let i = 1; i < 6; i++) {
       scene.add(createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth)[i]);
     }
     houseCreated = true;

@@ -47,27 +47,39 @@ function createCloud(cloudX, cloudY, cloudZ) {
   return(cloudFull);
 }
 
-//create full cloud
-export default function clouds(radius) {
-    //create 6 random clouds between y 2.5 and y 4
-
-  
-    const cloud = new THREE.Mesh(geometryCloud, materialCloud);
-
-    //use pytagoras! :O
-    var pytagorasA = Math.random() * (maxY - minY) + minY;
-    const pytagorasB = radius;
-
-    //calculate c with pytagoras
-    var pytagorasC = Math.sqrt( pytagorasB * 2 - pytagorasA * 2);
-
-    var cloudPositionY = pytagorasA;
-    var cloudPositionX = (Math.random() - 0.5) * (pytagorasC - 0.05);
-    var cloudPositionZ = (Math.random() - 0.5) * (pytagorasC - 0.05);
-    
-    console.log("pytagoras")
-    console.log(cloudPositionX, cloudPositionY, cloudPositionZ);
-    return (createCloud(cloudPositionX, cloudPositionY, cloudPositionZ));
-
+function pytagoras(a, b, c) {
+  if(c === "unknown"){
+    return Math.sqrt(a * a + b * b);
+  } else if (a === "unknown") {
+    return Math.sqrt(c * c - b * b);
+  } else if (b === "unknown") {
+    return Math.sqrt(c * c - a * a);
+  }
 }
 
+//create full cloud
+export default function clouds(radius) {
+  //create 6 random clouds between y 2.5 and y 4
+
+  
+  const cloud = new THREE.Mesh(geometryCloud, materialCloud);
+
+  //use pytagoras! :O
+  
+  var cloudPositionY = Math.random() * (maxY - minY) + minY;
+  
+  var pytagorasX = pytagoras("unknown", cloudPositionY, radius);
+  console.log(pytagorasX);
+
+  var cloudPositionX = Math.random() * (pytagorasX - (-pytagorasX)) + (-pytagorasX);
+
+  var pytagorasZ = pytagoras("unknown", cloudPositionX, radius);
+
+  var cloudPositionZ = Math.random() * (pytagorasZ - (-pytagorasZ)) + (-pytagorasZ);
+
+    
+  console.log("pytagoras")
+  console.log(cloudPositionX, cloudPositionY, cloudPositionZ);
+  return (createCloud(cloudPositionX/Math.PI, cloudPositionY, cloudPositionZ/Math.PI));
+
+}
