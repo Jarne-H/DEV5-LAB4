@@ -2,3 +2,8 @@
     background-color: #000000;
     color: #ffffff;
 }
+.form{
+    /*show over #app*/
+    position: absolute;
+    margin: 25px;
+}
