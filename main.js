@@ -7,6 +7,7 @@ import createHouse from './src/js/house.js';
 import background from './src/js/background.js';
 import ground from './src/js/ground.js';
 import road from './src/js/road.js';
+import roadCube from './src/js/roadcube';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -48,22 +49,8 @@ scene.add(ground());
 
 //*********************ROAD*********************//
 scene.add(road());
-
-//create 2 sides of road cube
-const roadCubeGeometry = new THREE.BoxGeometry(10, 0.03, 0.07);
-const roadCubeMaterial = new THREE.MeshStandardMaterial({ color: 0x999999 });
-
-const roadCube1 = new THREE.Mesh(roadCubeGeometry, roadCubeMaterial);
-roadCube1.position.y = + 0.02;
-roadCube1.position.z = + 0.5;
-scene.add(roadCube1);
-
-
-const roadCube2 = new THREE.Mesh(roadCubeGeometry, roadCubeMaterial);
-roadCube2.position.y = + 0.02;
-roadCube2.position.z = + 1.5;
-scene.add(roadCube2);
-
+scene.add(roadCube(0.5));
+scene.add(roadCube(1.5));
 
 //*********************CLOUDS*********************//
 const maxY = 4;
