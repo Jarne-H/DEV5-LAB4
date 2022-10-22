@@ -4,6 +4,7 @@ import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
 
 import { GLTFLoader } from 'THREE/examples/jsm/loaders/GLTFLoader.js';
 import createHouse from './src/js/house.js';
+import background from './src/js/background.js';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -40,21 +41,12 @@ scene.add(directionalLight());
 
 
 //*********************BACKGROUND*********************//
-//set background to galaxy.jpg
-const loader = new THREE.TextureLoader();
-
-
-//create ball 50 wide
-const geometryBall = new THREE.SphereGeometry(5, 32, 32);
-const materialBall = new THREE.MeshStandardMaterial({ color: 0x87ceff });
-const backgroundSphere = new THREE.Mesh(geometryBall, materialBall);
-//show inside
-backgroundSphere.material.side = THREE.BackSide;
-scene.add(backgroundSphere);
+scene.add(background());
 
 //*********************GROUND*********************//
 //create ground
 //use grass.jpg as texture
+const loader = new THREE.TextureLoader();
 const groundTexture = loader.load('./src/images/grass.jpg');
 groundTexture.wrapS = THREE.RepeatWrapping;
 groundTexture.wrapT = THREE.RepeatWrapping;
