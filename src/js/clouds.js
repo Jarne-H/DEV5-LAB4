@@ -61,7 +61,6 @@ function pytagoras(a, b, c) {
 export default function clouds(radius) {
   //create 6 random clouds between y 2.5 and y 4
 
-  
   const cloud = new THREE.Mesh(geometryCloud, materialCloud);
 
   //use pytagoras! :O
@@ -78,8 +77,7 @@ export default function clouds(radius) {
   var cloudPositionZ = Math.random() * (pytagorasZ - (-pytagorasZ)) + (-pytagorasZ);
 
     
-  console.log("pytagoras")
-  console.log(cloudPositionX, cloudPositionY, cloudPositionZ);
+  console.log("pytagoras");
   return (createCloud(cloudPositionX/Math.PI, cloudPositionY, cloudPositionZ/Math.PI));
 
 }
