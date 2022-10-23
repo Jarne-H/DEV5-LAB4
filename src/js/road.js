@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 
 //create function to create house
-export default function road() {
+export default function road(radius) {
     //create road
     //road black color
-    const roadGeometry = new THREE.PlaneGeometry(10, 1)
+    const roadGeometry = new THREE.PlaneGeometry(radius, 1)
     const roadMaterial = new THREE.MeshStandardMaterial({ color: 0x000000 })
     const road = new THREE.Mesh(roadGeometry, roadMaterial);
     //make backside of road visible

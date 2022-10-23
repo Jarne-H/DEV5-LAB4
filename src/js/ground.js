@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 //create function to create house
-export default function ground() {
+export default function ground(radius) {
 
     //create ground
     //use grass.jpg as texture
@@ -13,7 +13,7 @@ export default function ground() {
     groundTexture.anisotropy = 16;
     groundTexture.encoding = THREE.sRGBEncoding;
 
-    const groundGeometry = new THREE.PlaneGeometry(10, 10)
+    const groundGeometry = new THREE.PlaneGeometry(radius, radius)
     const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x80ff80, map: groundTexture })
 
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);

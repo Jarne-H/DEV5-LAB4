@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
 //create 2 sides of road cube
-export default function roadCube(position) {
-    const roadCubeGeometry = new THREE.BoxGeometry(10, 0.03, 0.07);
+export default function roadCube(radius, position) {
+    const roadCubeGeometry = new THREE.BoxGeometry(radius, 0.03, 0.07);
     const roadCubeMaterial = new THREE.MeshStandardMaterial({ color: 0x999999 });
   
     const roadCube = new THREE.Mesh(roadCubeGeometry, roadCubeMaterial);

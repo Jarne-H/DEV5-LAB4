@@ -1,7 +1,5 @@
 import * as THREE from 'three';
 
-const maxY = 3.5;
-const minY = 2.5;
 
 //create ball
 const geometryCloud = new THREE.SphereGeometry(0.1, 10, 10);
@@ -59,7 +57,9 @@ function pytagoras(a, b, c) {
 
 //create full cloud
 export default function clouds(radius) {
-  //create 6 random clouds between y 2.5 and y 4
+const maxY = radius/10 * 3.5;
+const minY = radius/10 * 2.5;
+  //create 6 random clouds between y 2.5 and y 3.5
 
   const cloud = new THREE.Mesh(geometryCloud, materialCloud);
 
