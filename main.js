@@ -1,6 +1,7 @@
 //*********************SETUP*********************//
 import './style.css'
-import * as THREE from 'THREE'
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
 import createHouse from './src/js/house.js';
 import background from './src/js/background.js';
@@ -8,7 +9,6 @@ import ground from './src/js/ground.js';
 import road from './src/js/road.js';
 import roadCube from './src/js/roadcube';
 import clouds from './src/js/clouds';
-import pirateShip from './src/js/pirate';
 import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
@@ -41,6 +41,13 @@ controls.minDistance = 0.1;
 //don't let orbit control go under y = 0.001
 controls.maxPolarAngle = Math.PI / 2.1;
 
+//resize window when window is resized
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
 //*********************LIGHTS*********************//
 scene.add(houseLight())
 scene.add(directionalLight());
@@ -57,7 +64,23 @@ scene.add(roadCube(0.5));
 scene.add(roadCube(1.5));
 
 //*********************PRATESHIP*********************//
-scene.add(pirateShip());
+
+
+//create new gltf loader
+const loader = new GLTFLoader();
+//load the gltf file
+
+window.addEventListener('resize', onWindowResize, false);
+var pirateShip = loader.load('./src/models/scene.gltf', function (gltf) {
+  var ship = gltf.scene;
+  ship.scale.set(0.1, 0.1, 0.1);
+  ship.position.x = 5.5;
+  ship.position.y = 0.1;
+  ship.position.z = 0.6;
+  ship.rotation.y = Math.PI / 4.2;
+  scene.add(ship);
+  moveShip(ship);
+});
 
 //*********************CLOUDS*********************//
 for (let i = 0; i < radius*2; i++) {
@@ -105,14 +128,24 @@ function changeHouse() {
     scene.add(wall);
   });
 }
-if (document.getElementById("houseWidth").value != houseWidth || document.getElementById("houseHeight").value != houseHeight || document.getElementById("houseDepth").value != houseDepth) {
-  changeHouse();
+
+//*******PIRATESHIP ANIMATION******* */
+
+//move pirate ship to y = -5.5 then teleport back to 5.5 and repeat
+function moveShip(item) {
+  if (item.position.y > -5.5) {
+    item.position.y -= 0.01;
+  } else {
+    item.position.y = 5.5;
+  }
 }
 
-//*******animation******* */
-function animate(item) {
+
+//*******ANIMATION******* */
+function animate() {
   requestAnimationFrame( animate );
 
-renderer.render( scene, camera );
+  renderer.render(scene, camera);
+  //moveShip(pirateShip);
 };
 animate();
