@@ -118,7 +118,7 @@ House();
 //*******PIRATESHIP ANIMATION******* */
 
 //move pirate ship to y = -5.5 then teleport back to 5.5 and repeat
-function moveShip(item) {
+function moveShip() {
   if (item.position.y > -5.5) {
     item.position.y -= 0.01;
   } else {

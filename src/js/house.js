@@ -2,28 +2,23 @@
 import * as THREE from 'three';
 
 //create function to create house
-export default function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth) {
+function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth) {
     const house_x = new THREE.PlaneGeometry(houseWidth, houseHeight, 1);
     const house_y = new THREE.PlaneGeometry(houseDepth, houseHeight, 1);
     const house_z = new THREE.PlaneGeometry(houseWidth, houseDepth, 1);
         
-    const materials = [
-        new THREE.MeshLambertMaterial({ color: 0xffd700 }),
-        new THREE.MeshLambertMaterial({ color: 0xffd700 }),
-        new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
-        new THREE.MeshLambertMaterial({ color: 0x00ff00 }),
-        new THREE.MeshLambertMaterial({ color: 0xff1818 }),
-        new THREE.MeshLambertMaterial({ color: 0xff1818 })
-    ];
+    //make double sided
+    //use ./src/images/Wood_Wall_003_basecolor.jpg for texture
+    const texture = new THREE.TextureLoader().load('./src/images/Wood_Wall_003_basecolor.jpg');
+    const materials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: texture});
+
       
-    materials.forEach(material => material.side = THREE.DoubleSide);
-      
-    const front = new THREE.Mesh(house_x, materials[0]);
-    const back = new THREE.Mesh(house_x, materials[1]);
-    const top = new THREE.Mesh(house_z, materials[2]);
-    const bot = new THREE.Mesh(house_z, materials[3]);
-    const right = new THREE.Mesh(house_y, materials[4]);
-    const left = new THREE.Mesh(house_y, materials[5]);
+    const front = new THREE.Mesh(house_x, materials, texture);
+    const back = new THREE.Mesh(house_x, materials, texture);
+    const top = new THREE.Mesh(house_z, materials, texture);
+    const bot = new THREE.Mesh(house_z, materials, texture);
+    const right = new THREE.Mesh(house_y, materials, texture);
+    const left = new THREE.Mesh(house_y, materials, texture);
       
       
     front.position.x = houseX;
@@ -53,7 +48,32 @@ export default function createHouse(houseX, houseY, houseZ, houseWidth, houseHei
     left.position.y = houseY + houseHeight / 2;
     left.position.z = houseZ;
     left.rotation.y = houseX + Math.PI / 2;
+
+    //use rotated cube for roof
+
+    //use ./src/images/Wood_Wall_003_basecolor.jpg for texture
+    const roofTexture = new THREE.TextureLoader().load('./src/images/Stylized_Bricks_002_basecolor.jpg');
+    const roofMaterials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: roofTexture });
+    const size = Math.sqrt(houseWidth * houseWidth + houseDepth * houseDepth)/2;
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(houseDepth-0.001, size, size), roofMaterials);
+    roof.position.x = houseX;
+    roof.position.y = houseY + houseHeight;
+    roof.position.z = houseZ;
+    //rotate 45 degrees
+    roof.rotation.x = Math.PI / 4;
+
+    //add cube in front of house
+    //use ./src/images/jarne.jpg for texture
+    const jarneTexture = new THREE.TextureLoader().load('./src/images/jarne.jpg');
+    const frontMaterials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: jarneTexture });
+    const name = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.3, 0.1), frontMaterials);
+    name.position.x = houseX;
+    name.position.y = houseY + houseHeight / 2;
+    name.position.z = houseZ + houseDepth / 2;
+
       
-    var house = [front, back, top, bot, right, left];
+    var house = [front, back, top, bot, right, left, roof, name];
     return (house);
 }
+//erport createHouse
+export { createHouse };
