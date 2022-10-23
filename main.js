@@ -3,7 +3,7 @@ import './style.css'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
-import createHouse from './src/js/house.js';
+import {createHouse} from './src/js/house.js';
 import background from './src/js/background.js';
 import ground from './src/js/ground.js';
 import road from './src/js/road.js';
@@ -36,7 +36,7 @@ controls.enableDamping = true;
 
 //set boundaries to orbit controls
 controls.minDistance = 0.1;
-//controls.maxDistance = radius/2;
+controls.maxDistance = radius/2;
 
 //don't let orbit control go under y = 0.001
 controls.maxPolarAngle = Math.PI / 2.1;
@@ -102,32 +102,18 @@ var houseDepth = 1;
 
 
 //if no house is created, create house
-function createHouset() {
+function House() {
   var houseCreated = false;
   if (houseCreated == false) {
     
     //loop through array of 6
-    for (let i = 1; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
       scene.add(createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth)[i]);
     }
     houseCreated = true;
   }
 }
-createHouset();
-
-
-//if houseWidth or houseHeight or housedepth is changed, remove old house and create new house
-function changeHouse() {
-  houseWidth = document.getElementById("houseWidth").value;
-  houseHeight = document.getElementById("houseHeight").value;
-  houseDepth = document.getElementById("houseDepth").value;
-  HouseClass.createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth).forEach(function (wall) {
-    scene.remove(wall);
-  });
-  HouseClass.createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth).forEach(function (wall) {
-    scene.add(wall);
-  });
-}
+House();
 
 //*******PIRATESHIP ANIMATION******* */
 
