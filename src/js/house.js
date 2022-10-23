@@ -54,8 +54,8 @@ function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth
     //use ./src/images/Wood_Wall_003_basecolor.jpg for texture
     const roofTexture = new THREE.TextureLoader().load('./src/images/Stylized_Bricks_002_basecolor.jpg');
     const roofMaterials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: roofTexture });
-    const size = Math.sqrt(houseWidth * houseWidth + houseDepth * houseDepth)/2;
-    const roof = new THREE.Mesh(new THREE.BoxGeometry(houseDepth-0.001, size, size), roofMaterials);
+    const size = Math.sqrt(houseDepth * houseDepth + houseDepth * houseDepth)/2;
+    const roof = new THREE.Mesh(new THREE.BoxGeometry(houseWidth-0.001, size, size), roofMaterials);
     roof.position.x = houseX;
     roof.position.y = houseY + houseHeight;
     roof.position.z = houseZ;

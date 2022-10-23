@@ -13,6 +13,15 @@ import { houseLight, directionalLight } from './src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
 
+//*******YOU CAN CHANGE THESE VARIABLES******* */
+//size of house
+var houseWidth = 1;
+var houseDepth = 1;
+//size of world
+const radius = 10;
+
+
+//*******STARTUP******* */
 const scene = new THREE.Scene();
 //add camera
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -27,8 +36,6 @@ document.body.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-//radius of the space
-const radius = 10;
 
 //add orbit controls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -56,12 +63,12 @@ scene.add(directionalLight());
 scene.add(background(radius));
 
 //*********************GROUND*********************//
-scene.add(ground());
+scene.add(ground(radius));
 
 //*********************ROAD*********************//
-scene.add(road());
-scene.add(roadCube(0.5));
-scene.add(roadCube(1.5));
+scene.add(road(radius));
+scene.add(roadCube(radius, 0.5));
+scene.add(roadCube(radius, 1.5));
 
 //*********************PRATESHIP*********************//
 
@@ -71,16 +78,16 @@ const loader = new GLTFLoader();
 //load the gltf file
 
 window.addEventListener('resize', onWindowResize, false);
-var pirateShip = loader.load('./src/models/scene.gltf', function (gltf) {
+loader.load('./src/models/scene.gltf', function (gltf) {
   var ship = gltf.scene;
   ship.scale.set(0.1, 0.1, 0.1);
-  ship.position.x = 5.5;
+  ship.position.x = 2.5;
   ship.position.y = 0.1;
   ship.position.z = 0.6;
   ship.rotation.y = Math.PI / 4.2;
   scene.add(ship);
-  moveShip(ship);
 });
+console.log(loader);
 
 //*********************CLOUDS*********************//
 for (let i = 0; i < radius*2; i++) {
@@ -94,11 +101,7 @@ for (let i = 0; i < radius*2; i++) {
 var houseX = 0;
 var houseY = 0;
 var houseZ = 0;
-//set houseWidth to #houseWidth value
-var houseWidth = document.getElementById("houseWidth").value;
-
-var houseHeight = 1;
-var houseDepth = 1;
+var houseHeight = document.getElementById("houseHeight").value;
 
 
 //if no house is created, create house
