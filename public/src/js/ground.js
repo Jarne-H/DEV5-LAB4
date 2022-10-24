@@ -6,7 +6,7 @@ export default function ground(radius) {
     //create ground
     //use grass.jpg as texture
     const loader = new THREE.TextureLoader();
-    const groundTexture = loader.load('./src/images/grass.jpg');
+    const groundTexture = loader.load('./public/src/images/grass.jpg');
     groundTexture.wrapS = THREE.RepeatWrapping;
     groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set(25, 25);

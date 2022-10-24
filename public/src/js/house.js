@@ -7,8 +7,8 @@ function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth
     const house_y = new THREE.PlaneGeometry(houseDepth, houseHeight, 1);
         
     //make double sided
-    //use ./src/images/Wood_Wall_003_basecolor.jpg for texture
-    const texture = new THREE.TextureLoader().load('./src/images/Wood_Wall_003_basecolor.jpg');
+    //use ./public/src/images/Wood_Wall_003_basecolor.jpg for texture
+    const texture = new THREE.TextureLoader().load('./public/src/images/Wood_Wall_003_basecolor.jpg');
     const materials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: texture });
 
     const front = new THREE.Mesh(house_x, materials, texture);
@@ -17,8 +17,8 @@ function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth
     const left = new THREE.Mesh(house_y, materials, texture);
     
     //use rotated cube for roof
-    //use ./src/images/Wood_Wall_003_basecolor.jpg for texture
-    const roofTexture = new THREE.TextureLoader().load('./src/images/Stylized_Bricks_002_basecolor.jpg');
+    //use ./public/src/images/Wood_Wall_003_basecolor.jpg for texture
+    const roofTexture = new THREE.TextureLoader().load('./public/src/images/Stylized_Bricks_002_basecolor.jpg');
     const roofMaterials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: roofTexture });
     const size = Math.sqrt(houseDepth * houseDepth + houseDepth * houseDepth) / 2;
     const roof = new THREE.Mesh(new THREE.BoxGeometry(houseWidth - 0.001, size, size), roofMaterials);
@@ -26,8 +26,8 @@ function createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth
     roof.rotation.x = Math.PI / 4;
 
     //add cube in front of house
-    //use ./src/images/jarne.jpg for texture
-    const jarneTexture = new THREE.TextureLoader().load('./src/images/jarne.jpg');
+    //use ./public/src/images/jarne.jpg for texture
+    const jarneTexture = new THREE.TextureLoader().load('./public/src/images/jarne.jpg');
     const frontMaterials = new THREE.MeshLambertMaterial({ color: 0xffffff, side: THREE.DoubleSide, map: jarneTexture });
     const name = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.3, 0.1), frontMaterials);
 
