@@ -82,8 +82,8 @@ loader.load('./src/models/scene.gltf', function (gltf) {
   ship.scale.set(0.1, 0.1, 0.1);
   ship.position.x = 2.5;
   ship.position.y = 0.1;
-  ship.position.z = 0.6;
-  ship.rotation.y = Math.PI / 4.2;
+  ship.position.z = 0.7;
+  ship.rotation.y = Math.PI / 3;
   scene.add(ship);
 });
 console.log(loader);
