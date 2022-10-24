@@ -2,7 +2,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'THREE/examples/jsm/controls/OrbitControls.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import {createHouse} from './src/js/house.js';
 import bGround from './src/js/bGround.js';
 import ground from './src/js/ground.js';
