@@ -101,7 +101,7 @@ function House() {
   if (houseCreated == false) {
     
     //loop through array of 6
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 6; i++) {
       scene.add(createHouse(houseX, houseY, houseZ, houseWidth, houseHeight, houseDepth)[i]);
     }
     houseCreated = true;

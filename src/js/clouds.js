@@ -68,15 +68,10 @@ const minY = radius/10 * 2.5;
   var cloudPositionY = Math.random() * (maxY - minY) + minY;
   
   var pytagorasX = pytagoras("unknown", cloudPositionY, radius);
-  console.log(pytagorasX);
-
   var cloudPositionX = Math.random() * (pytagorasX - (-pytagorasX)) + (-pytagorasX);
-
   var pytagorasZ = pytagoras("unknown", cloudPositionX, radius);
-
   var cloudPositionZ = Math.random() * (pytagorasZ - (-pytagorasZ)) + (-pytagorasZ);
 
-    
   console.log("pytagoras");
   return (createCloud(cloudPositionX/Math.PI, cloudPositionY, cloudPositionZ/Math.PI));
 
