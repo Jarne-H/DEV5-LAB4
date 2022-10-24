@@ -3,13 +3,13 @@ import './style.css'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import {createHouse} from './src/js/house.js';
-import bGround from './src/js/bGround.js';
-import ground from './src/js/ground.js';
-import road from './src/js/road.js';
-import roadCube from './src/js/roadcube';
-import clouds from './src/js/clouds';
-import { houseLight, directionalLight } from './src/js/lights.js';
+import {createHouse} from './public/src/js/house.js';
+import bGround from './public/src/js/bGround.js';
+import ground from './public/src/js/ground.js';
+import road from './public/src/js/road.js';
+import roadCube from './public/src/js/roadcube';
+import clouds from './public/src/js/clouds';
+import { houseLight, directionalLight } from './public/src/js/lights.js';
 
 //prate ship downloaded at: https://sketchfab.com/3d-models/pirate-ship-6b32fb0dac4c4e79a2a09a93559302e8
 
@@ -77,7 +77,7 @@ for (let i = 0; i < radius*2; i++) {
 //*********************PRATESHIP*********************//
 
 const loader = new GLTFLoader();
-loader.load('./src/models/scene.gltf', function (gltf) {
+loader.load('./public/src/models/scene.gltf', function (gltf) {
   var ship = gltf.scene;
   ship.scale.set(0.1, 0.1, 0.1);
   ship.position.x = 2.5;
